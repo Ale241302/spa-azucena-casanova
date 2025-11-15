@@ -5,14 +5,14 @@ WORKDIR /app
 # Copiar package.json y package-lock.json
 COPY backend/package*.json ./
 
-# Instalar todas las dependencias
-RUN npm install
-
-# Copiar archivos necesarios para Prisma
+# Copiar archivos necesarios para Prisma ANTES de npm install
 COPY backend/prisma ./prisma
 COPY backend/tsconfig.json ./
 
-# Generar Prisma Client
+# Instalar dependencias (sin postinstall)
+RUN npm install --ignore-scripts
+
+# Generar Prisma Client manualmente después de instalar
 RUN npx prisma generate
 
 # Copiar código fuente
