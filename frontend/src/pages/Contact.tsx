@@ -35,7 +35,7 @@ const Contact = () => {
     setSuccess(false)
 
     try {
-      const apiUrl = (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
+      const apiUrl = ((import.meta.env.VITE_API_URL as string) || 'http://localhost:3001').replace(/\/$/, '')
       const response = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: {

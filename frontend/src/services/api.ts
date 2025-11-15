@@ -1,11 +1,12 @@
 // Configuración de la API
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '')
 
 export const api = {
   baseURL: API_URL,
   
   async get(endpoint: string) {
-    const response = await fetch(`${API_URL}${endpoint}`)
+    const endpointPath = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+    const response = await fetch(`${API_URL}${endpointPath}`)
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -13,7 +14,8 @@ export const api = {
   },
   
   async post(endpoint: string, data: any) {
-    const response = await fetch(`${API_URL}${endpoint}`, {
+    const endpointPath = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+    const response = await fetch(`${API_URL}${endpointPath}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

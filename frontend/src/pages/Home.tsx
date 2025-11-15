@@ -7,7 +7,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const apiUrl = (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
+    const apiUrl = ((import.meta.env.VITE_API_URL as string) || 'http://localhost:3001').replace(/\/$/, '')
     fetch(`${apiUrl}/api/services`)
       .then((res) => res.json())
       .then((data) => {
