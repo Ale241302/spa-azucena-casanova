@@ -5,8 +5,8 @@ WORKDIR /app
 # Copiar package.json y package-lock.json
 COPY backend/package*.json ./
 
-# Instalar dependencias
-RUN npm ci --only=production
+# Instalar dependencias (incluyendo devDependencies para compilar)
+RUN npm ci
 
 # Copiar archivos necesarios para Prisma
 COPY backend/prisma ./prisma
