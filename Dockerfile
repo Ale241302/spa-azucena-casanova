@@ -2,18 +2,20 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copiar archivos del backend
+# Copiar package.json y package-lock.json
 COPY backend/package*.json ./
-COPY backend/tsconfig.json ./
-COPY backend/prisma ./prisma
 
 # Instalar dependencias
-RUN npm install
+RUN npm ci --only=production
+
+# Copiar archivos necesarios para Prisma
+COPY backend/prisma ./prisma
+COPY backend/tsconfig.json ./
 
 # Generar Prisma Client
 RUN npx prisma generate
 
-# Copiar código fuente del backend
+# Copiar código fuente
 COPY backend/src ./src
 
 # Compilar TypeScript
@@ -23,5 +25,5 @@ RUN npm run build
 EXPOSE 3001
 
 # Comando de inicio
-CMD ["npm", "start"]
+CMD ["node", "dist/server.js"]
 
