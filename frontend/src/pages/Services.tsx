@@ -6,7 +6,8 @@ const Services = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/services')
+    const apiUrl = (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
+    fetch(`${apiUrl}/api/services`)
       .then((res) => res.json())
       .then((data) => {
         setServices(data)

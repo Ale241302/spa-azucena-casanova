@@ -12,7 +12,9 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // Middlewares
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin: FRONTEND_URL.includes(',') 
+    ? FRONTEND_URL.split(',').map(url => url.trim())
+    : FRONTEND_URL,
   credentials: true,
 }));
 app.use(express.json());

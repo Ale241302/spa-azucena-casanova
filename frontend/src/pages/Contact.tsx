@@ -35,7 +35,8 @@ const Contact = () => {
     setSuccess(false)
 
     try {
-      const response = await fetch('/api/contact', {
+      const apiUrl = (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
+      const response = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
