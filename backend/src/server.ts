@@ -37,12 +37,35 @@ prisma.$connect()
   });
 
 // Middlewares
-app.use(cors({
-  origin: FRONTEND_URL.includes(',') 
-    ? FRONTEND_URL.split(',').map(url => url.trim())
-    : FRONTEND_URL,
+// Configurar CORS para permitir URLs de Vercel y las configuradas
+const allowedOrigins = FRONTEND_URL.includes(',') 
+  ? FRONTEND_URL.split(',').map(url => url.trim())
+  : [FRONTEND_URL];
+
+// Función para verificar si el origen está permitido
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // Permitir requests sin origen (como Postman o curl)
+    if (!origin) {
+      return callback(null, true);
+    }
+    
+    // Verificar si el origen está en la lista permitida
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    // Permitir todas las URLs de Vercel (para previews y producción)
+    if (origin.includes('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
-}));
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
