@@ -117,7 +117,7 @@ const Home = () => {
           <div className="text-center">
             <Link
               to="/servicios"
-              className="inline-block bg-spa-pink-400 hover:bg-spa-pink-500 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+              className="inline-block bg-spa-primary hover:bg-spa-primary-dark text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Ver Todos los Servicios
             </Link>
@@ -137,7 +137,7 @@ const Home = () => {
           </p>
           <Link
             to="/contacto"
-            className="inline-block bg-spa-pink-400 hover:bg-spa-pink-500 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+            className="inline-block bg-white hover:bg-spa-bg text-spa-primary px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg border-2 border-spa-primary"
           >
             Agendar Cita
           </Link>
