@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Service } from '../types'
 
 const Home = () => {
+  const navigate = useNavigate()
   const [services, setServices] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -32,18 +33,18 @@ const Home = () => {
             Bienestar, relajación y cuidado facial y corporal
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/servicios"
+            <button
+              onClick={() => navigate('/servicios')}
               className="bg-spa-pink hover:bg-spa-pink-dark text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Ver Servicios
-            </Link>
-            <Link
-              to="/contacto"
+            </button>
+            <button
+              onClick={() => navigate('/contacto')}
               className="bg-white hover:bg-spa-bg text-spa-pink px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg border-2 border-spa-pink"
             >
               Contactar
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -115,12 +116,12 @@ const Home = () => {
           )}
 
           <div className="text-center">
-            <Link
-              to="/servicios"
+            <button
+              onClick={() => navigate('/servicios')}
               className="inline-block bg-spa-primary hover:bg-spa-primary-dark text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Ver Todos los Servicios
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -135,12 +136,12 @@ const Home = () => {
             Contáctanos hoy mismo y agenda tu cita. Estamos aquí para ayudarte a 
             sentirte y verte mejor.
           </p>
-          <Link
-            to="/contacto"
+          <button
+            onClick={() => navigate('/contacto')}
             className="inline-block bg-white hover:bg-spa-bg text-spa-primary px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg border-2 border-spa-primary"
           >
             Agendar Cita
-          </Link>
+          </button>
         </div>
       </section>
     </div>
