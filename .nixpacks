@@ -1,8 +1,0 @@
-#!/bin/bash
-# Nixpacks configuration for Railway
-
-cd backend
-npm install
-npx prisma generate
-npm run build
-

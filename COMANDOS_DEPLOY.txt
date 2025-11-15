@@ -1,0 +1,75 @@
+COMANDOS PARA DEPLOY - Usuario: Ale241302
+
+===========================================
+1. SUBIR A GITHUB
+===========================================
+cd C:\Users\ale13\OneDrive\Escritorio\spa-azucena-casanova
+git push -u origin main
+
+Si te pide credenciales:
+- Usuario: Ale241302
+- Contraseña: Usa un Personal Access Token (no tu contraseña)
+  Crear token: GitHub → Settings → Developer settings → Personal access tokens → Generate new token
+  Permisos: repo (todos los permisos de repositorio)
+
+===========================================
+2. RAILWAY - BACKEND + BASE DE DATOS
+===========================================
+
+URL del repositorio: https://github.com/Ale241302/spa-azucena-casanova
+
+Pasos en Railway:
+1. Ve a https://railway.app → Login with GitHub
+2. New Project → Add Service → Database → PostgreSQL
+3. Copia la DATABASE_URL completa
+4. Add Service → GitHub Repo → Selecciona "spa-azucena-casanova"
+5. En Settings del servicio backend:
+   - Root Directory: backend
+   - Build Command: npm install && npm run build
+   - Start Command: npm start
+6. En Variables, agrega estas 3 variables:
+   DATABASE_URL=<pega la URL de PostgreSQL>
+   PORT=3001
+   FRONTEND_URL=https://tu-frontend.vercel.app
+   NODE_ENV=production
+7. Espera a que termine el deploy
+8. Copia la URL del backend (ej: https://xxx.up.railway.app)
+9. Ve a Deploy Logs → View Logs → Terminal y ejecuta:
+   npx prisma migrate deploy
+   npx prisma db seed
+
+===========================================
+3. VERCEL - FRONTEND
+===========================================
+
+1. Ve a https://vercel.com → Login with GitHub
+2. Add New Project → Selecciona "spa-azucena-casanova"
+3. Configura:
+   - Framework Preset: Vite
+   - Root Directory: frontend
+   - Build Command: npm run build (ya está configurado)
+   - Output Directory: dist (ya está configurado)
+4. En Environment Variables, agrega:
+   VITE_API_URL=https://tu-backend.up.railway.app
+   (Reemplaza con la URL real de Railway del paso 2)
+5. Click Deploy
+6. Copia la URL del frontend (ej: https://xxx.vercel.app)
+
+===========================================
+4. ACTUALIZAR CORS EN RAILWAY
+===========================================
+
+1. Vuelve a Railway → Backend → Variables
+2. Actualiza FRONTEND_URL con la URL real de Vercel:
+   FRONTEND_URL=https://tu-proyecto.vercel.app
+3. Railway redeployará automáticamente
+
+===========================================
+5. VERIFICAR QUE FUNCIONA
+===========================================
+
+- Frontend: Abre la URL de Vercel
+- Backend: Abre https://tu-backend.up.railway.app/api/health
+- Servicios: Deben aparecer en la página
+- Formulario: Prueba enviar un mensaje
+
