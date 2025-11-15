@@ -34,5 +34,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # Prisma
-backend/prisma/migrations/
+# backend/prisma/migrations - NO IGNORAR, necesarias para Railway/
 

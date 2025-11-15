@@ -24,6 +24,9 @@ COPY src ./src
 # Compilar TypeScript
 RUN npm run build
 
+# Ejecutar migraciones (se ejecutará en runtime, no en build)
+# Las migraciones se ejecutarán al iniciar el contenedor
+
 # Exponer puerto
 EXPOSE 3001
 
