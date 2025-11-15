@@ -16,8 +16,21 @@ const prisma = new PrismaClient();
 
 // Verificar conexión a la base de datos al iniciar
 prisma.$connect()
-  .then(() => {
+  .then(async () => {
     console.log('✅ Conectado a la base de datos');
+    
+    // Verificar si hay servicios, si no, ejecutar seed
+    const serviceCount = await prisma.service.count();
+    if (serviceCount === 0) {
+      console.log('📦 Base de datos vacía, ejecutando seed...');
+      try {
+        const { execSync } = require('child_process');
+        execSync('npx tsx prisma/seed.ts', { stdio: 'inherit' });
+        console.log('✅ Seed ejecutado correctamente');
+      } catch (seedError) {
+        console.warn('⚠️ Advertencia al ejecutar seed:', seedError);
+      }
+    }
   })
   .catch((error) => {
     console.error('❌ Error conectando a la base de datos:', error);
